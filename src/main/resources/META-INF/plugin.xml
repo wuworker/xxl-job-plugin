@@ -1,0 +1,23 @@
+<idea-plugin>
+    <id>com.wxl.plugin.xxl-job-plugin</id>
+    <name>Xxl Job Plugins</name>
+    <vendor email="wuxingle17@163.com" url="">wxl</vendor>
+
+    <description><![CDATA[
+    Show All Xxl Job Entries In Tool Windows
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="com.wxl.xxljob.action.FindFileAction" class="com.wxl.xxljob.action.FindFileAction" text="Find File"
+                description="Find target file">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
