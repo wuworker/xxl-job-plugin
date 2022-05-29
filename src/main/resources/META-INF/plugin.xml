@@ -11,7 +11,7 @@
     <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="Xxl Job View" secondary="true" icon="AllIcons.General.Modified" anchor="right"
+        <toolWindow id="XxlJobTool" secondary="true" icon="AllIcons.General.Modified" anchor="right"
                     factoryClass="com.wxl.xxljob.toolwindow.XxlJobToolWindowFactory"/>
     </extensions>
 

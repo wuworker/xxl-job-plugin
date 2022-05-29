@@ -27,7 +27,7 @@ import java.util.concurrent.*
  * Create by wuxingle on 2022/2/19
  * xxl job tool window
  */
-class XxlJobToolWindowPanel(
+class XxlJobToolWindow(
     private val project: Project,
     private val toolWindow: ToolWindow
 ) : SimpleToolWindowPanel(true, false), Disposable {
@@ -40,7 +40,7 @@ class XxlJobToolWindowPanel(
 
     init {
         executorTaskBounded = ThreadPoolExecutor(
-            0, 1,
+            0, 5,
             1L, TimeUnit.MINUTES,
             LinkedBlockingQueue(),
             Executors.defaultThreadFactory(),
@@ -61,6 +61,18 @@ class XxlJobToolWindowPanel(
                 .finishOnUiThread(ModalityState.defaultModalityState()) { renderXxlJobTree(it) }
                 .submit(executorTaskBounded)
         }
+    }
+
+    /**
+     * 刷新树
+     */
+    fun refresh(){
+        ReadAction.nonBlocking(Callable { getXxlJobs() })
+            .inSmartMode(project)
+            .finishOnUiThread(ModalityState.defaultModalityState()) {
+                renderXxlJobTree(it)
+            }
+            .submit(executorTaskBounded)
     }
 
     /**

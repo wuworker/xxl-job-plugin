@@ -1,16 +1,15 @@
 package com.wxl.xxljob.action
 
 import com.intellij.icons.AllIcons
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.jetbrains.rd.util.getLogger
-import com.jetbrains.rd.util.info
+import com.intellij.openapi.project.DumbAwareAction
+import com.wxl.xxljob.toolwindow.XxlJobToolWindowFactory
 
 /**
  * Create by wuxingle on 2022/2/19
  * 刷新job列表
  */
-class RefreshAction : AnAction() {
+class RefreshAction : DumbAwareAction() {
 
     init {
         templatePresentation.text = "Refresh"
@@ -18,7 +17,10 @@ class RefreshAction : AnAction() {
     }
 
     override fun actionPerformed(e: AnActionEvent) {
-        getLogger<RefreshAction>().info { "refresh" }
+        val project = e.project
+        if (project != null) {
+            XxlJobToolWindowFactory.getToolWindow(project)?.refresh()
+        }
     }
 
 }
