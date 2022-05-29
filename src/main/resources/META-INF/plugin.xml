@@ -4,13 +4,15 @@
     <vendor email="wuxingle17@163.com" url="">wxl</vendor>
 
     <description><![CDATA[
-    Show All Xxl Job Entries In Tool Windows
+    Show All Xxl Job View In Simple Tool Windows
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <toolWindow id="Xxl Job View" secondary="true" icon="AllIcons.General.Modified" anchor="right"
+                    factoryClass="com.wxl.xxljob.toolwindow.XxlJobToolWindowFactory"/>
     </extensions>
 
     <actions>
