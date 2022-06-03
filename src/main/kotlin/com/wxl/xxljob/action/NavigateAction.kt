@@ -6,20 +6,20 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.wxl.xxljob.toolwindow.XxlJobToolWindowFactory
 
 /**
- * Create by wuxingle on 2022/2/19
- * 刷新job列表
+ * Create by wuxingle on 2022/6/3
+ * 导航到选中文件
  */
-class RefreshAction : AnAction() {
+class NavigateAction : AnAction() {
 
     init {
-        templatePresentation.text = "Refresh"
-        templatePresentation.icon = AllIcons.Actions.Refresh
+        templatePresentation.text = "Open File"
+        templatePresentation.icon = AllIcons.General.Locate
     }
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
         if (project != null) {
-            XxlJobToolWindowFactory.getToolWindow(project)?.refresh()
+            XxlJobToolWindowFactory.getToolWindow(project)?.navigateSelected()
         }
     }
 

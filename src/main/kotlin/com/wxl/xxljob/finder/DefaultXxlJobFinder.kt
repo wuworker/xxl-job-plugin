@@ -2,11 +2,11 @@ package com.wxl.xxljob.finder
 
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
-import com.intellij.psi.*
-import com.intellij.psi.impl.java.stubs.index.JavaAnnotationIndex
-import com.intellij.psi.search.searches.ClassInheritorsSearch
-import com.jetbrains.rd.util.getLogger
+import com.intellij.psi.PsiClass
+import com.intellij.psi.PsiLiteralValue
+import com.intellij.psi.PsiMethod
 import com.wxl.xxljob.model.XxlJobModel
+import com.wxl.xxljob.utils.Constants
 
 /**
  * Create by wuxingle on 2022/2/14
@@ -14,16 +14,6 @@ import com.wxl.xxljob.model.XxlJobModel
  * 通过
  */
 class DefaultXxlJobFinder : XxlJobFinder {
-
-    // todo
-    companion object {
-
-        private val xxlJobAbstractClass = Qualified("IJobHandler", "com.xxl.job.core.handler.IJobHandler")
-
-        private val xxlJobMethodAnnotation = Qualified("XxlJob", "com.xxl.job.core.handler.annotation.XxlJob")
-
-        private val log = getLogger<DefaultXxlJobFinder>()
-    }
 
     /**
      * 获取xxl job
@@ -35,7 +25,7 @@ class DefaultXxlJobFinder : XxlJobFinder {
 
         findXxlJobMethod(project, module).forEach {
             var jobName = it.name
-            val attributeValue = it.getAnnotation(xxlJobMethodAnnotation.fullName)
+            val attributeValue = it.getAnnotation(Constants.XLL_JOB_METHOD_ANNOTATION_NAME)
                 ?.findAttributeValue("value")
             if (attributeValue is PsiLiteralValue) {
                 jobName = attributeValue.value?.toString() ?: jobName
@@ -50,30 +40,14 @@ class DefaultXxlJobFinder : XxlJobFinder {
      * 获取xxlJob class
      */
     private fun findXxlJobClass(project: Project, module: Module): List<PsiClass> {
-        val findClass = JavaPsiFacade.getInstance(project).findClass(
-            xxlJobAbstractClass.fullName, module.moduleWithLibrariesScope
-        ) ?: return emptyList()
-
-        return ClassInheritorsSearch.search(findClass, module.moduleScope, true).toList()
+        return PsiElementFinders.findInheritorsClass(project, module, Constants.XLL_JOB_ABSTRACT_CLASS_NAME)
     }
 
     /**
      * 获取xxlJob method
      */
     private fun findXxlJobMethod(project: Project, module: Module): List<PsiMethod> {
-        val psiMethods = arrayListOf<PsiMethod>()
-
-        val psiAnnotations = JavaAnnotationIndex.getInstance().get(
-            xxlJobMethodAnnotation.name,
-            project, module.moduleScope
-        )
-        for (psiAnnotation in psiAnnotations) {
-            val psiElement = (psiAnnotation.parent as PsiModifierList).parent
-            if ((psiElement is PsiMethod)) {
-                psiMethods.add(psiElement)
-            }
-        }
-
-        return psiMethods
+        return PsiElementFinders.findHasAnnotation(project, module, Constants.XLL_JOB_METHOD_ANNOTATION_NAME)
     }
+
 }

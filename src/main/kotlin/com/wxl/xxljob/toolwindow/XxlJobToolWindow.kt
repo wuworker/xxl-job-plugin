@@ -16,6 +16,7 @@ import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.openapi.wm.ToolWindow
+import com.wxl.xxljob.action.NavigateAction
 import com.wxl.xxljob.action.RefreshAction
 import com.wxl.xxljob.finder.DefaultXxlJobFinder
 import com.wxl.xxljob.finder.XxlJobFinder
@@ -66,7 +67,7 @@ class XxlJobToolWindow(
     /**
      * 刷新树
      */
-    fun refresh(){
+    fun refresh() {
         ReadAction.nonBlocking(Callable { getXxlJobs() })
             .inSmartMode(project)
             .finishOnUiThread(ModalityState.defaultModalityState()) {
@@ -76,12 +77,23 @@ class XxlJobToolWindow(
     }
 
     /**
+     * 导航到当前选中的节点文件
+     */
+    fun navigateSelected() {
+        val node = xxlJobListPanel.getChooseNode()
+        if (node != null) {
+            xxlJobListPanel.navigateToNode(node)
+        }
+    }
+
+    /**
      * 初始化toolbar
      */
     private fun initToolBar(xxlJobListPanel: XxlJobListPanel): ActionToolbar {
         val group = DefaultActionGroup()
 
         group.add(RefreshAction())
+        group.add(NavigateAction())
 
         group.addSeparator()
 
@@ -173,11 +185,7 @@ class XxlJobToolWindow(
         }
         val children = arrayListOf<AbstractNode<*>>()
         for (job in jobs) {
-            if (job.isClassJob) {
-                children.add(ClassNode(ClassData(job)))
-            } else if (job.isMethodJob) {
-                children.add(MethodNode(MethodData(job)))
-            }
+            children.add(XxlJobNode(job))
         }
 
         children.sortBy { it.getFragment() }
