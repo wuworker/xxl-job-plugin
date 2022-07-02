@@ -2,7 +2,6 @@ package com.wxl.xxljob.model
 
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiMethod
 
 /**
  * Create by wuxingle on 2022/2/19
@@ -10,12 +9,16 @@ import com.intellij.psi.PsiMethod
  */
 data class XxlJobModel(
     val jobName: String,
-    val holder: PsiElement
+    val psiElement: PsiElement
 ) {
 
-    val isClassJob: Boolean
-        get() = holder is PsiClass
+    val jobType: XxlJobType = if (psiElement is PsiClass) {
+        XxlJobType.CLASS
+    } else {
+        XxlJobType.METHOD
+    }
 
-    val isMethodJob: Boolean
-        get() = holder is PsiMethod
+
+    val icon = jobType.icon
+
 }

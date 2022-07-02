@@ -11,15 +11,18 @@
     <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow id="XxlJobTool" secondary="true" icon="AllIcons.General.Modified" anchor="right"
-                    factoryClass="com.wxl.xxljob.toolwindow.XxlJobToolWindowFactory"/>
+        <toolWindow id="XxlJobTool" secondary="true" icon="CustomIcons.Logo" anchor="right"
+                    factoryClass="com.wxl.xxljob.toolwindow.XxlJobToolWindowFactory"
+                    doNotActivateOnStart="true"/>
+
+        <projectService serviceImplementation="com.wxl.xxljob.view.search.GotoXxlJobConfiguration"/>
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
-        <action id="com.wxl.xxljob.action.FindFileAction" class="com.wxl.xxljob.action.FindFileAction" text="Find File"
-                description="Find target file">
-            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        <action id="Tool.GotoRequestService"
+                class="com.wxl.xxljob.action.GotoXxlJobAction">
+            <add-to-group group-id="GoToTargetEx" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt SLASH"/>
         </action>
     </actions>
 </idea-plugin>

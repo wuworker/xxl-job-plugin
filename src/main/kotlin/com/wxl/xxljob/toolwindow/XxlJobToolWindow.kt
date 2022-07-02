@@ -16,7 +16,6 @@ import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.openapi.wm.ToolWindow
-import com.wxl.xxljob.action.NavigateAction
 import com.wxl.xxljob.action.RefreshAction
 import com.wxl.xxljob.finder.DefaultXxlJobFinder
 import com.wxl.xxljob.finder.XxlJobFinder
@@ -93,7 +92,7 @@ class XxlJobToolWindow(
         val group = DefaultActionGroup()
 
         group.add(RefreshAction())
-        group.add(NavigateAction())
+        group.add(ActionManager.getInstance().getAction("Tool.GotoRequestService"))
 
         group.addSeparator()
 

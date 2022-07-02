@@ -1,6 +1,5 @@
 package com.wxl.xxljob.view.tree.node
 
-import com.intellij.icons.AllIcons
 import com.intellij.psi.PsiElement
 import com.wxl.xxljob.model.XxlJobModel
 import javax.swing.Icon
@@ -15,11 +14,7 @@ class XxlJobNode(
 
 
     override fun getIcon(selected: Boolean): Icon {
-        return if (source.isClassJob) {
-            AllIcons.Nodes.Class
-        } else {
-            AllIcons.Nodes.Method
-        }
+        return source.icon
     }
 
     override fun getFragment(): String {
@@ -27,7 +22,7 @@ class XxlJobNode(
     }
 
     fun getXxlJobPsiElement(): PsiElement {
-        return source.holder
+        return source.psiElement
     }
 }
 
