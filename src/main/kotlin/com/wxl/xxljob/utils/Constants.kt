@@ -10,6 +10,10 @@ object Constants {
 
     const val TOOL_WINDOWS_ID = APPLICATION_NAME
 
+    const val FIND_BY_PARENT_CLASS = "findByParentClass"
+
+    const val FIND_BY_ANNOTATION = "findByAnnotation"
+
     /**
      * xxljob的父类
      */

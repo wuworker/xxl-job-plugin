@@ -37,7 +37,8 @@ class GotoXxlJobAction : GotoActionBase() {
         // 显示featureId对应的Tips
         FeatureUsageTracker.getInstance().triggerFeatureUsed("navigation.popup.service");
 
-        val contributors: Array<ChooseByNameContributor> = arrayOf(GotoXxlJobContributor(e.getData(LangDataKeys.MODULE)))
+        val contributors: Array<ChooseByNameContributor> =
+            arrayOf(GotoXxlJobContributor(e.getData(LangDataKeys.MODULE)))
 
         val gotoByModel = XxlJobFilteringGotoByModel(project, contributors)
 
@@ -64,6 +65,11 @@ class GotoXxlJobAction : GotoActionBase() {
             true, true,
             provider
         )
+    }
+
+    companion object {
+
+        val ID = GotoXxlJobAction::class.java.name
     }
 }
 
