@@ -11,7 +11,7 @@ import com.intellij.navigation.ChooseByNameContributor
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.LangDataKeys
 import com.intellij.openapi.project.Project
-import com.wxl.xxljob.model.XxlJobType
+import com.wxl.xxljob.view.search.XxlJobType
 import com.wxl.xxljob.view.search.GotoXxlJobConfiguration
 import com.wxl.xxljob.view.search.GotoXxlJobContributor
 import com.wxl.xxljob.view.search.XxlJobFilteringGotoByModel

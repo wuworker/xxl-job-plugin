@@ -1,4 +1,4 @@
-package com.wxl.xxljob.model
+package com.wxl.xxljob.view.search
 
 import com.intellij.icons.AllIcons
 import javax.swing.Icon

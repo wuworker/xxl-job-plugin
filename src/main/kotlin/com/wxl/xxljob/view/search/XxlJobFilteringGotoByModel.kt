@@ -5,7 +5,8 @@ import com.intellij.ide.util.gotoByName.FilteringGotoByModel
 import com.intellij.navigation.ChooseByNameContributor
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.project.Project
-import com.wxl.xxljob.model.XxlJobType
+import com.wxl.xxljob.model.XxlJobClass
+import com.wxl.xxljob.model.XxlJobMethod
 
 /**
  * Create by wuxingle on 2022/6/27
@@ -18,7 +19,12 @@ class XxlJobFilteringGotoByModel(
 
     override fun filterValueFor(item: NavigationItem?): XxlJobType? {
         if (item is XxlJobItem) {
-            return item.xxlJobModel.jobType
+            if (item.xxlJobModel is XxlJobClass) {
+                return XxlJobType.CLASS
+            }
+            if (item.xxlJobModel is XxlJobMethod) {
+                return XxlJobType.METHOD
+            }
         }
         return null
     }

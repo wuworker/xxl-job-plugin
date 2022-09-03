@@ -18,8 +18,8 @@ import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.openapi.wm.ToolWindow
 import com.wxl.xxljob.action.GotoXxlJobAction
 import com.wxl.xxljob.action.RefreshAction
-import com.wxl.xxljob.finder.DefaultXxlJobFinder
 import com.wxl.xxljob.finder.XxlJobFinder
+import com.wxl.xxljob.finder.XxlJobFinderFactory
 import com.wxl.xxljob.model.XxlJobModel
 import com.wxl.xxljob.view.tree.node.*
 import java.util.concurrent.*
@@ -48,7 +48,7 @@ class XxlJobToolWindow(
             ThreadPoolExecutor.DiscardOldestPolicy()
         )
 
-        xxlJobFind = DefaultXxlJobFinder()
+        xxlJobFind = XxlJobFinderFactory.getFind()
 
         xxlJobListPanel = XxlJobListPanel(project)
 

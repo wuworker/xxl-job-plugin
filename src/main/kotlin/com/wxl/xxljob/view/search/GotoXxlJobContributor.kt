@@ -5,8 +5,8 @@ import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.project.Project
-import com.wxl.xxljob.finder.DefaultXxlJobFinder
 import com.wxl.xxljob.finder.XxlJobFinder
+import com.wxl.xxljob.finder.XxlJobFinderFactory
 import com.wxl.xxljob.model.XxlJobModel
 import java.util.*
 
@@ -18,7 +18,7 @@ class GotoXxlJobContributor(
     private val module: Module?
 ) : ChooseByNameContributor {
 
-    private val xxlJobFind: XxlJobFinder = DefaultXxlJobFinder()
+    private val xxlJobFind: XxlJobFinder = XxlJobFinderFactory.getFind()
 
 
     override fun getNames(project: Project, includeNonProjectItems: Boolean): Array<String> {

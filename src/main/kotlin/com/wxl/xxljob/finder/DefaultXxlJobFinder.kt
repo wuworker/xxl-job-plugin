@@ -6,6 +6,8 @@ import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiLiteralValue
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifierListOwner
+import com.wxl.xxljob.model.XxlJobClass
+import com.wxl.xxljob.model.XxlJobMethod
 import com.wxl.xxljob.model.XxlJobModel
 import com.wxl.xxljob.settings.XxlJobSettings
 import com.wxl.xxljob.utils.Constants
@@ -31,14 +33,16 @@ class DefaultXxlJobFinder : XxlJobFinder {
             // 按父类查找
             if (Constants.FIND_BY_PARENT_CLASS == settings.classFindWay) {
                 PsiElementFinders.findInheritorsClass(project, module, classFullName)
-                    .forEach { jobs.add(XxlJobModel(it.name!!, it)) }
+                    .forEach {
+                        jobs.add(XxlJobClass(it.name!!, it))
+                    }
             }
             // 按注解查找
             else if (Constants.FIND_BY_ANNOTATION == settings.classFindWay) {
                 PsiElementFinders.findHasAnnotation<PsiClass>(project, module, classFullName)
                     .forEach {
                         val jobName = findAnnotationValue(it, classFullName) ?: it.name
-                        jobs.add(XxlJobModel(jobName!!, it))
+                        jobs.add(XxlJobClass(jobName!!, it))
                     }
             }
         }
@@ -48,13 +52,12 @@ class DefaultXxlJobFinder : XxlJobFinder {
         if (methodAnnotation.isNotBlank()) {
             PsiElementFinders.findHasAnnotation<PsiMethod>(project, module, methodAnnotation).forEach {
                 val jobName = findAnnotationValue(it, methodAnnotation) ?: it.name
-                jobs.add(XxlJobModel(jobName, it))
+                jobs.add(XxlJobMethod(jobName, it))
             }
         }
 
         return jobs
     }
-
 
     private fun findAnnotationValue(psiElement: PsiModifierListOwner, annotationName: String): String? {
         val attributeValue = psiElement.getAnnotation(annotationName)
