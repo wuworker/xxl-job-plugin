@@ -19,12 +19,11 @@ import com.wxl.xxljob.utils.Constants
  */
 class DefaultXxlJobFinder : XxlJobFinder {
 
-    private val settings = XxlJobSettings.getInstance()
-
     /**
      * 获取xxl job
      */
     override fun findXxlJob(project: Project, module: Module): List<XxlJobModel> {
+        val settings = XxlJobSettings.getInstance(project)
         val jobs = arrayListOf<XxlJobModel>()
 
         // 查找类

@@ -1,6 +1,7 @@
 package com.wxl.xxljob.settings
 
 import com.intellij.openapi.options.BoundSearchableConfigurable
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogPanel
 import com.intellij.ui.layout.panel
 import com.wxl.xxljob.utils.Constants
@@ -10,12 +11,12 @@ import javax.swing.DefaultComboBoxModel
  * Create by wuxingle on 2022/7/2
  * 设置界面配置
  */
-class XxlJobSettingsConfigurable : BoundSearchableConfigurable(
+class XxlJobSettingsConfigurable(private val project: Project) : BoundSearchableConfigurable(
     "XxlJob Settings", "XxlJob Settings", ID
 ) {
 
     private val settings
-        get() = XxlJobSettings.getInstance()
+        get() = XxlJobSettings.getInstance(project)
 
     override fun createPanel(): DialogPanel {
 

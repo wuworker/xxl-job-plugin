@@ -1,9 +1,8 @@
 package com.wxl.xxljob.settings
 
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.State
-import com.intellij.openapi.components.Storage
+import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.wxl.xxljob.utils.Constants
 
@@ -11,7 +10,7 @@ import com.wxl.xxljob.utils.Constants
  * Create by wuxingle on 2022/7/2
  * 设置数据
  */
-@State(name = "XxlJobSettings", storages = [Storage("xxlJobSetting.xml")])
+@State(name = "XxlJobSettings")
 class XxlJobSettings : PersistentStateComponent<XxlJobSettings> {
 
     /**
@@ -34,8 +33,8 @@ class XxlJobSettings : PersistentStateComponent<XxlJobSettings> {
 
     companion object {
 
-        fun getInstance(): XxlJobSettings {
-            return ApplicationManager.getApplication().getService(XxlJobSettings::class.java)
+        fun getInstance(project: Project): XxlJobSettings {
+            return project.getService(XxlJobSettings::class.java)
         }
     }
 }

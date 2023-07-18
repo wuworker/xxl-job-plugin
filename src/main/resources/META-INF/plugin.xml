@@ -11,10 +11,10 @@
     <depends>com.intellij.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable parentId="tools" instance="com.wxl.xxljob.settings.XxlJobSettingsConfigurable"
+        <projectConfigurable parentId="tools" instance="com.wxl.xxljob.settings.XxlJobSettingsConfigurable"
                                  id="com.wxl.xxljob.settings.XxlJobSettingsConfigurable"
                                  displayName="XxlJob Settings"/>
-        <applicationService serviceImplementation="com.wxl.xxljob.settings.XxlJobSettings"/>
+        <projectService serviceImplementation="com.wxl.xxljob.settings.XxlJobSettings"/>
 
         <toolWindow id="XxlJobTool"
                     secondary="true" icon="CustomIcons.Logo" anchor="right"

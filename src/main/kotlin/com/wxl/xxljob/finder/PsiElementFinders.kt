@@ -21,7 +21,7 @@ object PsiElementFinders {
      */
     fun findInheritorsClass(project: Project, module: Module, fullName: String): List<PsiClass> {
         val findClass = JavaPsiFacade.getInstance(project).findClass(
-            fullName, module.moduleWithLibrariesScope
+            fullName, module.getModuleWithDependenciesAndLibrariesScope(false)
         ) ?: return emptyList()
 
         return ClassInheritorsSearch.search(findClass, module.moduleScope, true).toList()
