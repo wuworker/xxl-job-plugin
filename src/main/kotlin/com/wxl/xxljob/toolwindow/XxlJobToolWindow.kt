@@ -17,6 +17,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.openapi.wm.ToolWindow
 import com.wxl.xxljob.action.GotoXxlJobAction
+import com.wxl.xxljob.action.LocateFileAction
 import com.wxl.xxljob.action.RefreshAction
 import com.wxl.xxljob.finder.XxlJobFinder
 import com.wxl.xxljob.finder.XxlJobFinderFactory
@@ -87,11 +88,23 @@ class XxlJobToolWindow(
     }
 
     /**
+     * 获取选中的节点
+     */
+    fun getSelectedNode(): XxlJobNode? {
+        val node = xxlJobListPanel.getChooseNode()
+        if (node is XxlJobNode) {
+            return node
+        }
+        return null
+    }
+
+    /**
      * 初始化toolbar
      */
     private fun initToolBar(xxlJobListPanel: XxlJobListPanel): ActionToolbar {
         val group = DefaultActionGroup()
 
+        group.add(LocateFileAction())
         group.add(RefreshAction())
         group.add(ActionManager.getInstance().getAction(GotoXxlJobAction.ID))
 
