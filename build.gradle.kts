@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.wxl.plugin"
-version = "2.0.1-SNAPSHOT"
+version = "2.0.1"
 
 repositories {
     mavenCentral()
